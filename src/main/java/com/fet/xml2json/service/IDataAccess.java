@@ -6,7 +6,7 @@ public interface IDataAccess {
 	public Boolean isExist (String strInputPath);
 	public Boolean canRead (String strInputPath);
 	public Boolean isXml (String strInputPath);
-	
 	public Boolean canWrite(String strOutputPath);
+	
 	
 }
