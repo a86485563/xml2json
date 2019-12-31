@@ -1,5 +1,8 @@
 package com.fet.xml2json.service.impl;
 
+import java.io.File;
+import java.util.Random;
+
 import org.springframework.stereotype.Service;
 
 import com.fet.xml2json.service.IDataAccess;
@@ -9,20 +12,32 @@ public class DataAccessImpl implements IDataAccess {
 
 	@Override
 	public Boolean isExist(String strInputPath) {
-		// TODO Auto-generated method stub
-		return null;
+	       // Get the file 
+        File f = new File(strInputPath); 
+  
+        // Check if the specified file 
+        // Exists or not 
+       return f.exists();
 	}
 
 	@Override
 	public Boolean canRead(String strInputPath) {
-		// TODO Auto-generated method stub
-		return null;
+		 File f = new File(strInputPath); 
+		  
+	        // Check if the specified file 
+	        // Can Read or not 
+	       return f.canRead();
 	}
 
+
+	// send data to AEM DB 
 	@Override
-	public Boolean isXml(String strInputPath) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean storeToDB(String jsonString) {
+		Boolean result = false;
+		Random rd = new Random();
+		result = rd.nextBoolean();
+		
+		return result;
 	}
 
 	@Override
@@ -31,5 +46,11 @@ public class DataAccessImpl implements IDataAccess {
 		return null;
 	}
 
+	@Override
+	public Boolean getXml() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+	
 }
