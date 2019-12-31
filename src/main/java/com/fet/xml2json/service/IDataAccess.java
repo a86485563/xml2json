@@ -5,8 +5,20 @@ public interface IDataAccess {
 
 	public Boolean isExist (String strInputPath);
 	public Boolean canRead (String strInputPath);
-	public Boolean isXml (String strInputPath);
-	public Boolean canWrite(String strOutputPath);
+	public Boolean canWrite(String strOutputPath);	
 	
 	
+	/**
+	 * call AEM api to store in AEM system
+	 * @param jsonString
+	 * @return store Result
+	 */
+	public Boolean storeToDB(String jsonString);
+	
+	/**
+	 * call DimApi to get xml
+	 * @param jsonString
+	 * @return store Result
+	 */
+	public Boolean getXml();
 }
