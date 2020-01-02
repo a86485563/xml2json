@@ -8,6 +8,6 @@ import org.json.JSONException;
 public interface IConvert {
 	//"裡可以有' '但不能有'\n'
 	public Boolean checkXmlFormat (String xsdPath, String xmlPath);
-	public String convert2Json(String xmlImput) throws IOException, JSONException;
-	public String readXmlToString (String strXmlPath) throws IOException;
+	public String convert2Json(String xmlImput);
+	//public String readXmlToString (String strXmlPath) throws IOException;
 }

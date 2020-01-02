@@ -21,6 +21,7 @@ import org.json.XML;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -34,22 +35,20 @@ public class ConvertImpl implements IConvert {
 	@Override
 	public Boolean checkXmlFormat(String xsdPath, String xmlPath) {
 
-		
-		   try {
-	            SchemaFactory factory = 
-	                    SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-	            Schema schema = factory.newSchema(new File(xsdPath));
-	            Validator validator = schema.newValidator();
-	            validator.validate(new StreamSource(new File(xmlPath)));
-	        } catch (IOException | SAXException e) {
-	            System.out.println("Exception: "+e.getMessage());
-	            return false;
-	        }
-	        return true;
+		try {
+			SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+			Schema schema = factory.newSchema(new File(xsdPath));
+			Validator validator = schema.newValidator();
+			validator.validate(new StreamSource(new File(xmlPath)));
+		} catch (IOException | SAXException e) {
+			System.out.println("Exception: " + e.getMessage());
+			return false;
+		}
+		return true;
 	}
 
 	@Override
-	public String convert2Json(String xmlInput) throws IOException, JSONException {
+	public String convert2Json(String xmlInput) {
 		// Read the student.xml
 		String result = "";
 		// String data = FileUtils.readFileToString(new File(xmlImput), "UTF-8");
@@ -58,22 +57,24 @@ public class ConvertImpl implements IConvert {
 		JSONObject jObject = XML.toJSONObject(xmlInput);
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		Object json = mapper.readValue(jObject.toString(), Object.class);
-		result = mapper.writeValueAsString(json);
+		Object json;
+		try {
+			json = mapper.readValue(jObject.toString(), Object.class);
+		} catch (IOException e) {
+			logger.info("****** " + e.toString() + " *******");
+			return "";
+		}
+		try {
+			result = mapper.writeValueAsString(json);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			logger.info("****** " + e.toString() + " *******");
+			return "";
+		}
 
-		logger.info("****** result: "+result+" ******");
-		return result;
-
-	}
-
-	@Override
-	public String readXmlToString(String strXmlPath) throws IOException {
-		logger.info("****** In readXmlToString ******");
-		logger.info("****** strXmlPath: " + strXmlPath + " ******");
-		String result = FileUtils.readFileToString(new File(strXmlPath), "UTF-8");
 		logger.info("****** result: " + result + " ******");
-
 		return result;
+
 	}
 
 }

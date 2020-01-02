@@ -1,5 +1,7 @@
 package com.fet.xml2json.service;
 
+import java.io.IOException;
+
 //負責檔案讀寫，確認正確性
 public interface IDataAccess {
 
@@ -17,8 +19,8 @@ public interface IDataAccess {
 	
 	/**
 	 * call DimApi to get xml
-	 * @param jsonString
+	 * @param strXmlPath path for xml
 	 * @return store Result
 	 */
-	public Boolean getXml();
+	public String readXmlToString (String strXmlPath) ;
 }

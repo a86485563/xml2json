@@ -43,7 +43,7 @@ class Xml2jsonApplicationTests {
 			logger.debug(e.toString());
 		}
 	}
-	*/
+*/	
 	@Test
 	public void vaildXml() {
 		logger.debug("***** In vaildXml ****");
@@ -52,5 +52,5 @@ class Xml2jsonApplicationTests {
 		Boolean result = convert.checkXmlFormat("D:\\gitHub\\XmlConvert2Json\\xml\\xsd\\handset_fix.xsd", "D:\\gitHub\\XmlConvert2Json\\xml\\test1.xml");
 		logger.debug("***** check result****"+result);
 	}
-
+ 
 }
